@@ -6,14 +6,18 @@ const getRandomInteger = function(min, max) {
   let randomNumber = min + Math.random() * (max + 1 - min);
   return Math.floor(randomNumber);
 }
-alert(getRandomInteger());
+console.log(getRandomInteger(1, 500));
 
 //Функция для проверки максимальной длины строки
 
 const checkLineLength = function(line, maxLineLength) {
-  maxLineLength = 140;
-  if (line < maxLineLength) {
-    return line.length;
+  if (line.length === 0) {
+    return null
+  }
+  if (line.length <= maxLineLength) {
+    return true;
+  } {
+    return false;
   }
 }
-alert(checkLineLength());
+console.log(checkLineLength('', 140));
