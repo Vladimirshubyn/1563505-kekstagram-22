@@ -49,7 +49,6 @@ const generatePictures = function () {
 }
 const pictures = generatePictures();
 pictures;
-console.log (pictures);
 //Функция для проверки максимальной длины строки
 
 const checkLineLength = function(line, maxLineLength) {
