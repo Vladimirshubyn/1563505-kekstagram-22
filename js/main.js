@@ -16,9 +16,21 @@ const getRandomNumber = function(min, max) {
 }
 
 const getRandomItem = function(arr) {
-  let arrayLenght = arr.length;
-  let randomItem = [Math.floor(Math.random() * arrayLenght)];
-  return Math.floor(randomItem);
+  let randomIndex = getRandomNumber(0, arr.length - 1);
+  return arr[randomIndex];
+}
+
+const generateComments = function() {
+  const randomComments = [];
+  for (let i = 0; i <= getRandomNumber (0, 500); i++) {
+    randomComments [i] = {
+      id: getRandomNumber (0, 500),
+      avatar: 'img/avatar-' + getRandomNumber (1, 6) + '.svg',
+      message: getRandomItem(PHOTO_COMMENTS),
+      name: getRandomItem(PHOTO_NAMES),
+    };
+  }
+  return randomComments;
 }
 
 const generatePictures = function () {
@@ -29,14 +41,7 @@ const generatePictures = function () {
       id: getRandomNumber (MIN_ID, MAX_ID),
       url: 'photos/' + number + '.jpg',
       likes: getRandomNumber (MIN_LIKES, MAX_LIKES),
-      comments: [
-        {
-          id: getRandomNumber (0, 500),
-          avatar: 'img/avatar-' + getRandomNumber (1, 6) + '.svg',
-          message: PHOTO_COMMENTS [getRandomItem(PHOTO_COMMENTS)],
-          name: PHOTO_NAMES [getRandomItem(PHOTO_NAMES)],
-        },
-      ],
+      comments: generateComments (),
       description: 'Описание фотографии пользователя',
     };
   }
@@ -44,7 +49,7 @@ const generatePictures = function () {
 }
 const pictures = generatePictures();
 pictures;
-
+console.log (pictures);
 //Функция для проверки максимальной длины строки
 
 const checkLineLength = function(line, maxLineLength) {
