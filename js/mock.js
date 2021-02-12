@@ -39,4 +39,3 @@ const generatePictures = function () {
   return pictures;
 }
 const pictures = generatePictures();
-pictures;

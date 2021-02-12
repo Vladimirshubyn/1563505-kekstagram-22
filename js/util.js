@@ -9,7 +9,6 @@ const getRandomItem = function(arr) {
   let randomIndex = getRandomNumber(0, arr.length - 1);
   return arr[randomIndex];
 }
-getRandomItem;
 
 //Функция для проверки максимальной длины строки
 
@@ -20,6 +19,5 @@ const checkLineLength = function(line, maxLineLength) {
     return false;
   }
 }
-checkLineLength;
 
 export {getRandomNumber, getRandomItem};
