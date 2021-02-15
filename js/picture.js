@@ -1,3 +1,5 @@
+import {generatePictures} from './mock.js';
+
 const pictureTeplate = document.querySelector ('#picture').content;
 const picturesList = document.querySelector('.pictures');
 const sortedPicturesList = [];
@@ -16,3 +18,6 @@ const makeGallery = function () {
   }
   picturesList.appendChild(fragment);
 };
+
+const pictures = generatePictures();
+makeGallery(pictures);
