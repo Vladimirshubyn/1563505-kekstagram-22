@@ -20,3 +20,6 @@ const makeGallery = function (arr) {
 
 const pictures = generatePictures();
 makeGallery(pictures);
+
+export {renderMiniatures};
+export {picturesList};
