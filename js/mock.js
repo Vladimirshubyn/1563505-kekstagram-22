@@ -38,4 +38,5 @@ const generatePictures = function () {
   }
   return pictures;
 }
-const pictures = generatePictures();
+
+export {generatePictures};
