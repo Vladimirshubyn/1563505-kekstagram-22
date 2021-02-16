@@ -2,7 +2,6 @@ import {generatePictures} from './mock.js';
 
 const pictureTeplate = document.querySelector ('#picture').content;
 const picturesList = document.querySelector('.pictures');
-const sortedPicturesList = [];
 
 const renderMiniatures = function (photo) {
   const photoMiniature = pictureTeplate.cloneNode(true);
@@ -11,10 +10,10 @@ const renderMiniatures = function (photo) {
   photoMiniature.querySelector('.picture__comments').textContent = photo.comments.length;
   return photoMiniature;
 }
-const makeGallery = function () {
+const makeGallery = function (arr) {
   const fragment = document.createDocumentFragment();
-  for (let i = 0; i < sortedPicturesList.length; i++) {
-    fragment.appendChild(renderMiniatures(sortedPicturesList[i]));
+  for (let i = 0; i < arr.length; i++) {
+    fragment.appendChild(renderMiniatures(arr[i]));
   }
   picturesList.appendChild(fragment);
 };
