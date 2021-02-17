@@ -1,54 +1,37 @@
-import {generatePictures, generateComments} from './mock.js';
-import {renderMiniatures} from './picture.js';
-import {picturesList} from './picture.js';
-
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
-const socialCommentsList = bigPicture.querySelector('.social__comments');
 
-const showBigPicture = function (arr) {
-  bigPicture.querySelector('.social__caption').textContent = arr.comments[0];
-  bigPicture.querySelector('.big-picture__img img').src = arr.url;
-  bigPicture.querySelector('.likes-count').textContent = arr.likes;
-  bigPicture.querySelector('.comments-count').textContent = arr.comments.length;
+window.evt = {
+  ESC_KEYCODE: 27,
+  ENTER_KEYCODE: 13,
+  isKeyEvent: function (evt, action) {
+    if (evt.keyCode === window.evt.ESC_KEYCODE || window.evt.ENTER_KEYCODE) {
+      action();
+    }
+  },
+};
+const closeBigPicture = function () {
+  bigPicture.classList.add('hidden');
+  document.removeEventListener('keydown', closeKeyHandler);
+};
+const closeKeyHandler = function (evt) {
+  window.evt.isKeyEvent(evt, closeBigPicture);
+};
+const showPreviewHandler = function (elem) {
+  elem.addEventListener('click', showBigPicture);
+};
 
-  const fragment = document.createDocumentFragment();
-
-  generateComments ();
-
-  while (socialCommentsList.firstChild) {
-    socialCommentsList.removeChild(socialCommentsList.firstChild);
-  }
-
-  socialCommentsList.appendChild(fragment);
-  socialCommentsList.firstChild.style.display = 'none';
-  document.querySelector('.social__comment-count').classList.add('visually-hidden');
-  document.querySelector('.social__comment-loadmore').classList.add('visually-hidden');
+const showBigPicture = function (evt) {
+  evt.preventDefault();
+  const clickedPicture = evt.target.parentNode;
+  bigPicture.querySelector('.big-picture__img').src = clickedPicture.querySelector('img').src;
+  bigPicture.querySelector('.likes-count').textContent = clickedPicture.querySelector('.picture__likes').textContent;
+  bigPicture.querySelector('.comments-count').textContent = clickedPicture.querySelector('.picture__comments').textContent;
   bigPicture.classList.remove('hidden');
-};
+  document.addEventListener('keydown', closeKeyHandler);
+  bigPictureClose.focus();
+}
 
-const miniaturePhoto = renderMiniatures()
-
-const pictureMiniatureEvent = function (evt, isKeyDown) {
-  miniaturePhoto.forEach(function(pictures) {
-    if (isKeyDown) {
-      if (evt.target.querySelector('img').getAttribute('src') === pictures.url) {
-        showBigPicture(pictures);
-      }
-    }
-    if (evt.target.getAttribute('src') === pictures.url) {
-      showBigPicture(pictures);
-    }
-  });
-  document.body.classList.add('modal-open');
-  bigPictureClose.addEventListener('click', function () {
-    document.body.classList.remove('modal-open');
-    bigPicture.classList.add('hidden');
-  });
-};
-
-picturesList.addEventListener('click', function (evt) {
-  if (evt.target.className === 'picture__img') {
-    pictureMiniatureEvent(evt);
-  }
-});
+document.querySelectorAll('.pictures').forEach(showPreviewHandler);
+bigPictureClose.addEventListener('click', closeBigPicture);
+bigPictureClose.addEventListener('keydown', closeKeyHandler);
