@@ -1,5 +1,4 @@
 import {isKeyEscEvent} from './util.js';
-import {generateComments} from './mock.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
@@ -24,7 +23,12 @@ const showBigPicture = function (photoObj) {
     socialCommentsList.removeChild(socialCommentsList.firstChild);
   }
 
-  generateComments();
+  const createSocialCommentsList = function (commentObj) {
+    const socialComment = socialCommentsList.cloneNode(true);
+    socialComment.querySelector('social__picture').src = commentObj.avatar;
+    socialComment.querySelector('.social__text').textContent = commentObj.message;
+    return createSocialCommentsList;
+  }
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);
