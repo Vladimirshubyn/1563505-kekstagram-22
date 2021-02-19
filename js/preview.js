@@ -3,6 +3,7 @@ import {isKeyEscEvent} from './util.js';
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentsList = bigPicture.querySelector('.social__comments');
+const socialCommentTemplate = socialCommentsList.querySelector('.social__comment');
 
 const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
@@ -24,11 +25,21 @@ const showBigPicture = function (photoObj) {
   }
 
   const createSocialCommentsList = function (commentObj) {
-    const socialComment = socialCommentsList.cloneNode(true);
-    socialComment.querySelector('social__picture').src = commentObj.avatar;
+    const socialComment = socialCommentTemplate.cloneNode(true);
+    socialComment.querySelector('.social__picture').src = commentObj.avatar;
     socialComment.querySelector('.social__text').textContent = commentObj.message;
-    return createSocialCommentsList;
+    return socialComment;
   }
+
+  const makeCommentList = function (arr) {
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < arr.length; i++) {
+      fragment.appendChild(createSocialCommentsList(arr[i]));
+    }
+    socialCommentsList.appendChild(fragment);
+  };
+
+  makeCommentList (photoObj.comments);
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);
