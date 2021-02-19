@@ -20,4 +20,12 @@ const checkLineLength = function(line, maxLineLength) {
   }
 }
 
-export {getRandomNumber, getRandomItem};
+
+const isKeyEscEvent = function (evt, action) {
+  const ESC_KEYCODE = 27;
+  if (evt.keyCode === ESC_KEYCODE) {
+    action();
+  }
+};
+
+export {getRandomNumber, getRandomItem, isKeyEscEvent};

@@ -1,6 +1,7 @@
 import {generatePictures} from './mock.js';
+import {showBigPicture} from './preview.js';
 
-const pictureTeplate = document.querySelector ('#picture').content;
+const pictureTeplate = document.querySelector ('#picture').content.querySelector('.picture');
 const picturesList = document.querySelector('.pictures');
 
 const renderMiniatures = function (photo) {
@@ -8,6 +9,9 @@ const renderMiniatures = function (photo) {
   photoMiniature.querySelector('img').src = photo.url;
   photoMiniature.querySelector('.picture__likes').textContent = photo.likes;
   photoMiniature.querySelector('.picture__comments').textContent = photo.comments.length;
+  photoMiniature.addEventListener('click', function () {
+    showBigPicture(photo);
+  });
   return photoMiniature;
 }
 const makeGallery = function (arr) {
@@ -20,3 +24,6 @@ const makeGallery = function (arr) {
 
 const pictures = generatePictures();
 makeGallery(pictures);
+
+export {renderMiniatures};
+export {picturesList};
