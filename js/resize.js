@@ -14,8 +14,8 @@ const PICTURE_SIZE = {
 let currentPictureSize = 100;
 
 const setPictureSize = function (size) {
-  resizeValue.value = '${size}%';
-  picturePreview.style = 'transform: scale(${size / 100})';
+  resizeValue.value = `${size}%`;
+  picturePreview.style = `transform: scale(${size / 100})`;
   currentPictureSize = size;
 };
 

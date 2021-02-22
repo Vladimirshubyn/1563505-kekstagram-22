@@ -1,4 +1,5 @@
 import * as resize from './resize.js';
+import {isKeyEscEvent} from './util.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -6,7 +7,7 @@ const editPanel = document.querySelector('.img-upload__overlay');
 const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview > img');
-const uploadErrorMessage = docu.querySelector('.error__message');
+const uploadErrorMessage = document.querySelector('.error__message');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -20,19 +21,27 @@ const errorUpload = function (message) {
   uploadErrorMessage.textContent = message;
 };
 
+const closeEditPanelHandler = function (evt) {
+  isKeyEscEvent(evt, editPanelCloseClick);
+};
+
 const editPanelCloseClick = function () {
   uploadForm.reset();
   uploadButton.value = '';
   resize.finalize();
   document.body.classList.remove('modal-open');
   editPanel.classList.add('hidden');
-  editPanelClose.removeEventListener('click', editPanelCloseClick);
 };
 
 const openUploadForm = function () {
+  resize.initialize();
   document.body.classList.add('modal-open');
   editPanel.classList.remove('hidden');
 };
+
+uploadButton.addEventListener('change', openUploadForm);
+uploadForm.addEventListener('keydown', closeEditPanelHandler);
+editPanelClose.addEventListener('click', editPanelCloseClick);
 
 const uploadFile = function (file, fileTypes, cb) {
   if (file) {
