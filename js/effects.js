@@ -6,7 +6,7 @@ const effectPanel = editPanel.querySelector('.effects');
 const effectList = editPanel.querySelector('.effects__list');
 const effectToggles = effectPanel.querySelectorAll('.effects__radio');
 const defaultEffect = effectPanel.querySelector('#effect-none');
-const uploadedPicture = editPanel.querySelector('.img-upload__preview > img');
+const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 
 const EFFECT_MAX_LEVEL = 100;
 
@@ -54,7 +54,7 @@ noUiSlider.create(sliderElement, {
 });
 
 effectList.addEventListener('change', function () {
-  if (effectList.querySelector('.effects__radio').checked) {
+  if (effectList.querySelector('.effects__radio:checked')) {
     sliderElement.noUiSlider.updateOptions({
       range: {
         min: 0,
@@ -64,6 +64,12 @@ effectList.addEventListener('change', function () {
       step: 0.1,
     });
   }
+});
+
+effectLevel.value = 100;
+
+sliderElement.noUiSlider.on('update', (_, handle, unencoded) => {
+  effectLevel.value = unencoded[handle];
 });
 
 let currentPictureClass;
@@ -81,20 +87,18 @@ const getEffectValue = function (value, effectName) {
   return currentEffect.min + value * (currentEffect.max - currentEffect.min) / EFFECT_MAX_LEVEL;
 };
 
-const setPictureEffect = (effectName) => {
+const setPictureEffect = function (effectName) {
   const effectValue = getEffectValue(effectLevel.value, effectName);
-  uploadedPicture.style.filter = effects[effectName].setFilter(effectValue);
+  uploadedPicture.style = effects[effectName].setFilter(effectValue);
 };
 
 const effectToggleClick = function (evt) {
   const selectedEffect = evt.target;
   if (selectedEffect === defaultEffect) {
-    sliderElement.hide();
+    scalePanel.classList.add('hidden');
   } else {
-    sliderElement.show();
-    sliderElement.setPinAction(selectedEffect.value, setPictureEffect);
+    scalePanel.classList.remove('hidden');
   }
-  sliderElement.setPinPosition(EFFECT_MAX_LEVEL);
   setPictureClass(selectedEffect.value);
   setPictureEffect(selectedEffect.value);
 };
@@ -105,10 +109,13 @@ const initialize = function () {
   defaultEffect.checked = true;
   setPictureClass(defaultEffect.value);
   setPictureEffect(defaultEffect.value);
-  sliderElement.hide();
+  scalePanel.classList.add('hidden');
 };
 
 const finalize = () => {
   Array.from(effectToggles).forEach((effectToggle) =>
     effectToggle.removeEventListener('click', effectToggleClick));
 };
+
+
+export {initialize, finalize};

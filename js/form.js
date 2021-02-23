@@ -1,4 +1,5 @@
 import * as resize from './resize.js';
+import * as effects from './effects.js';
 import {isKeyEscEvent} from './util.js';
 
 const uploadButton = document.querySelector('#upload-file');
@@ -6,7 +7,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const editPanel = document.querySelector('.img-upload__overlay');
 const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
-const uploadedPicture = editPanel.querySelector('.img-upload__preview > img');
+const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 const uploadErrorMessage = document.querySelector('.error__message');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
@@ -35,6 +36,7 @@ const editPanelCloseClick = function () {
 
 const openUploadForm = function () {
   resize.initialize();
+  effects.initialize();
   document.body.classList.add('modal-open');
   editPanel.classList.remove('hidden');
 };
