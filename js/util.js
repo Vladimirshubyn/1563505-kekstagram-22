@@ -28,4 +28,7 @@ const isKeyEscEvent = function (evt, action) {
   }
 };
 
-export {getRandomNumber, getRandomItem, isKeyEscEvent};
+const getArrayWithoutElement = (initialArray, deletedElement) =>
+  initialArray.reduce((acc, value) => value === deletedElement ? acc : [...acc, value], []);
+
+export {getRandomNumber, getRandomItem, isKeyEscEvent, checkLineLength, getArrayWithoutElement};

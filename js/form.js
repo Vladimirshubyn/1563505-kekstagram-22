@@ -8,7 +8,8 @@ const editPanel = document.querySelector('.img-upload__overlay');
 const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
-const uploadErrorMessage = document.querySelector('.error__message');
+const uploadErrorTemplate = document.querySelector('#error');
+const uploadErrorMessage = uploadErrorTemplate.querySelector('.error__title');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -73,3 +74,5 @@ const initialize = function (evt) {
     uploadMessage.classList.add('hidden');
   });
 };
+
+export {initialize};
