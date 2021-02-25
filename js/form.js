@@ -1,5 +1,6 @@
 import * as resize from './resize.js';
 import * as effects from './effects.js';
+import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
 
 const uploadButton = document.querySelector('#upload-file');
@@ -36,6 +37,7 @@ const editPanelCloseClick = function () {
 };
 
 const openUploadForm = function () {
+  validation.initialize();
   resize.initialize();
   effects.initialize();
   document.body.classList.add('modal-open');

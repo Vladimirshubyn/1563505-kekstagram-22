@@ -29,7 +29,7 @@ const checkActions = [
     check: (arg) => arg.length === 0,
   },
   {
-    message: 'Хэш-тэгов должно быть не более ${HashTag.AMOUNT}',
+    message: `Хэш-тэгов должно быть не более ${HASH_TAG.AMOUNT}`,
     check: (arg) => arg.length > HASH_TAG.AMOUNT,
   },
   {
@@ -37,11 +37,11 @@ const checkActions = [
     check: (arg) => arg.some((value) => value[0] !== HASH_TAG.SYMBOL),
   },
   {
-    message: 'Хэш-тэг должен состоять минимум из ${HashTag.MIN_SIZE} символов',
+    message: `Хэш-тэг должен состоять минимум из ${HASH_TAG.MIN_SIZE} символов`,
     check: (arg) => arg.some((value) => value.length < HASH_TAG.MIN_SIZE),
   },
   {
-    message: 'Хэш-тэг не должен превышать ${HashTag.MAX_SIZE} символов',
+    message: `Хэш-тэг не должен превышать ${HASH_TAG.MAX_SIZE} символов`,
     check: (arg) => arg.some((value) => value.length > HASH_TAG.MAX_SIZE),
   },
   {
