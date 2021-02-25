@@ -67,8 +67,8 @@ effectList.addEventListener('change', function () {
       },
       step: 0.1,
     });
-    sliderElement.noUiSlider.on('update', function (_, handle, unencoded) {
-      effectLevel.value = unencoded[handle];
+    sliderElement.noUiSlider.on('update', function (value) {
+      uploadedPicture.style = `filter: grayscale(${value})`;
     });
   }
   if (value === 'sepia') {
@@ -79,6 +79,9 @@ effectList.addEventListener('change', function () {
       },
       step: 0.1,
     });
+    sliderElement.noUiSlider.on('update', function (value) {
+      uploadedPicture.style = `filter: sepia(${value})`;
+    });
   }
   if (value === 'marvin') {
     sliderElement.noUiSlider.updateOptions({
@@ -87,6 +90,9 @@ effectList.addEventListener('change', function () {
         max: 100,
       },
       step: 1,
+    });
+    sliderElement.noUiSlider.on('update', function (value) {
+      uploadedPicture.style = `filter: invert(${value}%)`;
     });
   }
   if (value === 'phobos') {
@@ -97,6 +103,9 @@ effectList.addEventListener('change', function () {
       },
       step: 0.1,
     });
+    sliderElement.noUiSlider.on('update', function (value) {
+      uploadedPicture.style = `filter: blur(${value}px)`;
+    });
   }
   if (value === 'heat') {
     sliderElement.noUiSlider.updateOptions({
@@ -105,6 +114,9 @@ effectList.addEventListener('change', function () {
         max: 3,
       },
       step: 0.1,
+    });
+    sliderElement.noUiSlider.on('update', function (value) {
+      uploadedPicture.style = `filter: brightness(${value})`;
     });
   }
 });
