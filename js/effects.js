@@ -10,40 +10,6 @@ const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 
 const EFFECT_MAX_LEVEL = 100;
 
-const effects = {
-  chrome: {
-    start: 50,
-    min: 0,
-    max: 1,
-    setFilter: (value) => `grayscale(${value})`,
-  },
-  sepia: {
-    min: 0,
-    max: 1,
-    setFilter: (value) => `sepia(${value})`,
-  },
-  marvin: {
-    min: 0,
-    max: 100,
-    setFilter: (value) => `invert(${value}%)`,
-  },
-  phobos: {
-    min: 0,
-    max: 3,
-    setFilter: (value) => `blur(${value}px)`,
-  },
-  heat: {
-    min: 1,
-    max: 3,
-    setFilter: (value) => `brightness(${value})`,
-  },
-  none: {
-    min: 0,
-    max: 0,
-    setFilter: () => 'none',
-  },
-};
-
 noUiSlider.create(sliderElement, {
   range: {
     min: 0,
@@ -59,66 +25,6 @@ effectList.addEventListener('change', function () {
   setPictureClass(value);
   sliderElement.noUiSlider.set(EFFECT_MAX_LEVEL);
   effectToggleClick(value);
-  if (value === 'chrome') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1,
-      },
-      step: 0.1,
-    });
-    sliderElement.noUiSlider.on('update', function (value) {
-      uploadedPicture.style = `filter: grayscale(${value})`;
-    });
-  }
-  if (value === 'sepia') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1,
-      },
-      step: 0.1,
-    });
-    sliderElement.noUiSlider.on('update', function (value) {
-      uploadedPicture.style = `filter: sepia(${value})`;
-    });
-  }
-  if (value === 'marvin') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100,
-      },
-      step: 1,
-    });
-    sliderElement.noUiSlider.on('update', function (value) {
-      uploadedPicture.style = `filter: invert(${value}%)`;
-    });
-  }
-  if (value === 'phobos') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3,
-      },
-      step: 0.1,
-    });
-    sliderElement.noUiSlider.on('update', function (value) {
-      uploadedPicture.style = `filter: blur(${value}px)`;
-    });
-  }
-  if (value === 'heat') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3,
-      },
-      step: 0.1,
-    });
-    sliderElement.noUiSlider.on('update', function (value) {
-      uploadedPicture.style = `filter: brightness(${value})`;
-    });
-  }
 });
 
 effectLevel.value = 100;
@@ -133,33 +39,51 @@ const setPictureClass = function (effectName) {
   currentPictureClass = `effects__preview--${effectName}`;
 };
 
-const getEffectValue = function (value, effectName) {
-  // const currentEffect = effects[effectName];
-  // return currentEffect.min + value * (currentEffect.max - currentEffect.min) / EFFECT_MAX_LEVEL;
+const setPictureEffect = function (value) {
+  const effectValue = effectList.querySelector('.effects__radio:checked').value;
+  switch (effectValue) {
+    case 'chrome': {
+      uploadedPicture.style = `filter: grayscale(${value / 100})`;
+      break;
+    }
+    case 'sepia': {
+      uploadedPicture.style = `filter: sepia(${value / 100})`;
+      break;
+    }
+    case 'marvin': {
+      uploadedPicture.style = `filter: invert(${value}%)`;
+      break;
+    }
+    case 'phobos': {
+      uploadedPicture.style = `filter: blur(${value * 100 / 300})`;
+      break;
+    }
+    case 'heat': {
+      uploadedPicture.style = `filter: brightness(${value / 50})`;
+      break;
+    }
+    case 'none': {
+      uploadedPicture.style = 'filter: none';
+      break;
+    }
+  }
 };
 
-const setPictureEffect = function (effectName) {
-  // const effectValue = getEffectValue(effectLevel.value, effectName);
-  // uploadedPicture.style = effects[effectName].setFilter(effectValue);
-};
+sliderElement.noUiSlider.on('update', function (value) {
+  const floatValue = Number.parseFloat(value[0]);
+  setPictureEffect(floatValue);
+});
 
 const effectToggleClick = function (effectName) {
-  // const selectedEffect = evt.target;
   if (effectName === defaultEffect) {
     scalePanel.classList.add('hidden');
   } else {
     scalePanel.classList.remove('hidden');
   }
-  // setPictureClass(selectedEffect.value);
-  // setPictureEffect(selectedEffect.value);
 };
 
 const initialize = function () {
-  // Array.from(effectToggles).forEach((effectToggle) =>
-  //   effectToggle.addEventListener('click', effectToggleClick));
-  // defaultEffect.checked = true;
   setPictureClass(defaultEffect.value);
-  setPictureEffect(defaultEffect.value);
   scalePanel.classList.add('hidden');
 };
 
