@@ -58,7 +58,7 @@ const getCheckAction = (arg) => checkActions.find(({check}) => check(arg));
 
 const getHashTagsArray = function (str) {
   const arr = str.split(' ').map(((value) => value.toLowerCase()));
-  return getArrayWithoutElement(arr, ' ');
+  return getArrayWithoutElement(arr, '');
 };
 
 const checkHashTags = function (data) {
@@ -67,7 +67,7 @@ const checkHashTags = function (data) {
   if (message) {
     hashTagsField.setCustomValidity(message);
   } else {
-    hashTagsField.setCustomValidity(' ');
+    hashTagsField.setCustomValidity('');
   }
 };
 
@@ -76,14 +76,14 @@ const checkComment = function (data) {
     commentField.setCustomValidity(`Длина комментария не должна
     превышать ${COMMENT_MAX_SIZE} символов. Текущая длина сообщения ${data.length}`);
   } else {
-    commentField.setCustomValidity(' ');
+    commentField.setCustomValidity('');
   }
 };
 
 const clearCustomValidity = function (...fields) {
   fields.forEach((field) => {
     field.addEventListener('input', () => {
-      field.setCustomValidity(' ');
+      field.setCustomValidity('');
     });
   });
 };
@@ -105,4 +105,19 @@ const initialize = function () {
   });
 };
 
-export {initialize};
+const finalize = function () {
+  submitButton.removeEventListener('click', function () {
+    checkHashTags(hashTagsField.value);
+    checkComment(commentField.value);
+  });
+
+  uploadForm.removeEventListener('invalid', function (evt) {
+    setErrorValidStyle(evt.target);
+  }, true);
+
+  uploadForm.removeEventListener('input', function (evt) {
+    resetErrorValidStyle(evt.target);
+  });
+}
+
+export {initialize, finalize};
