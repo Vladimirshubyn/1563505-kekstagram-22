@@ -4,13 +4,12 @@ const scalePanel = editPanel.querySelector('.effect-level');
 const effectLevel = scalePanel.querySelector('.effect-level__value');
 const effectPanel = editPanel.querySelector('.effects');
 const effectList = editPanel.querySelector('.effects__list');
-const effectToggles = effectPanel.querySelectorAll('.effects__radio');
 const defaultEffect = effectPanel.querySelector('#effect-none').value;
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 
 const EFFECT_MAX_LEVEL = 100;
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(sliderElement, { // eslint-disable-line no-undef
   range: {
     min: 0,
     max: 100,
@@ -87,10 +86,5 @@ const initialize = function () {
   scalePanel.classList.add('hidden');
 };
 
-const finalize = () => {
-  Array.from(effectToggles).forEach((effectToggle) =>
-    effectToggle.removeEventListener('click', effectToggleClick));
-};
 
-
-export {initialize, finalize};
+export {initialize};

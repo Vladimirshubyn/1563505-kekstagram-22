@@ -1,5 +1,3 @@
-import {getArrayWithoutElement} from './util.js';
-
 const uploadForm = document.querySelector('.img-upload__form');
 const hashTagsField = uploadForm.querySelector('.text__hashtags');
 const commentField = uploadForm.querySelector('.text__description');
@@ -58,7 +56,7 @@ const getCheckAction = (arg) => checkActions.find(({check}) => check(arg));
 
 const getHashTagsArray = function (str) {
   const arr = str.split(' ').map(((value) => value.toLowerCase()));
-  return getArrayWithoutElement(arr, ' ');
+  return arr.filter (item => item !== '');
 };
 
 const checkHashTags = function (data) {
@@ -67,7 +65,7 @@ const checkHashTags = function (data) {
   if (message) {
     hashTagsField.setCustomValidity(message);
   } else {
-    hashTagsField.setCustomValidity(' ');
+    hashTagsField.setCustomValidity('');
   }
 };
 
@@ -76,33 +74,34 @@ const checkComment = function (data) {
     commentField.setCustomValidity(`Длина комментария не должна
     превышать ${COMMENT_MAX_SIZE} символов. Текущая длина сообщения ${data.length}`);
   } else {
-    commentField.setCustomValidity(' ');
+    commentField.setCustomValidity('');
   }
 };
 
 const clearCustomValidity = function (...fields) {
   fields.forEach((field) => {
     field.addEventListener('input', () => {
-      field.setCustomValidity(' ');
+      field.setCustomValidity('');
     });
   });
 };
 
 const initialize = function () {
   clearCustomValidity(hashTagsField, commentField);
-
-  submitButton.addEventListener('click', function () {
-    checkHashTags(hashTagsField.value);
-    checkComment(commentField.value);
-  });
-
-  uploadForm.addEventListener('invalid', function (evt) {
-    setErrorValidStyle(evt.target);
-  }, true);
-
-  uploadForm.addEventListener('input', function (evt) {
-    resetErrorValidStyle(evt.target);
-  });
 };
+
+submitButton.addEventListener('click', function () {
+  checkHashTags(hashTagsField.value);
+  checkComment(commentField.value);
+});
+
+uploadForm.addEventListener('invalid', function (evt) {
+  setErrorValidStyle(evt.target);
+}, true);
+
+uploadForm.addEventListener('input', function (evt) {
+  resetErrorValidStyle(evt.target);
+});
+
 
 export {initialize};
