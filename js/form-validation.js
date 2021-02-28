@@ -1,5 +1,3 @@
-import {getArrayWithoutElement} from './util.js';
-
 const uploadForm = document.querySelector('.img-upload__form');
 const hashTagsField = uploadForm.querySelector('.text__hashtags');
 const commentField = uploadForm.querySelector('.text__description');
@@ -58,7 +56,7 @@ const getCheckAction = (arg) => checkActions.find(({check}) => check(arg));
 
 const getHashTagsArray = function (str) {
   const arr = str.split(' ').map(((value) => value.toLowerCase()));
-  return getArrayWithoutElement(arr, '');
+  return arr.filter (item => item !== '');
 };
 
 const checkHashTags = function (data) {
@@ -90,34 +88,20 @@ const clearCustomValidity = function (...fields) {
 
 const initialize = function () {
   clearCustomValidity(hashTagsField, commentField);
-
-  submitButton.addEventListener('click', function () {
-    checkHashTags(hashTagsField.value);
-    checkComment(commentField.value);
-  });
-
-  uploadForm.addEventListener('invalid', function (evt) {
-    setErrorValidStyle(evt.target);
-  }, true);
-
-  uploadForm.addEventListener('input', function (evt) {
-    resetErrorValidStyle(evt.target);
-  });
 };
 
-const finalize = function () {
-  submitButton.removeEventListener('click', function () {
-    checkHashTags(hashTagsField.value);
-    checkComment(commentField.value);
-  });
+submitButton.addEventListener('click', function () {
+  checkHashTags(hashTagsField.value);
+  checkComment(commentField.value);
+});
 
-  uploadForm.removeEventListener('invalid', function (evt) {
-    setErrorValidStyle(evt.target);
-  }, true);
+uploadForm.addEventListener('invalid', function (evt) {
+  setErrorValidStyle(evt.target);
+}, true);
 
-  uploadForm.removeEventListener('input', function (evt) {
-    resetErrorValidStyle(evt.target);
-  });
-}
+uploadForm.addEventListener('input', function (evt) {
+  resetErrorValidStyle(evt.target);
+});
 
-export {initialize, finalize};
+
+export {initialize};
