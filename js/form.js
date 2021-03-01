@@ -2,7 +2,7 @@ import * as resize from './resize.js';
 import * as effects from './effects.js';
 import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
-import {createFetch, postFetch} from './create-fetch.js';
+import {postFetch} from './create-fetch.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -27,7 +27,7 @@ const errorUpload = function (message) {
 
 const uploadFormSubmit = function (evt) {
   const formData = new FormData(evt.target);
-  createFetch(formData, successUpload, errorUpload);
+  postFetch(formData, successUpload, errorUpload);
   // const postFetch = (onSuccess, onError) => () => {
   //   return fetch(
   //     'https://22.javascript.pages.academy/kekstagram',
