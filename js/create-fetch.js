@@ -27,6 +27,7 @@ const postFetch = (formData, onSuccess, onError) => () => {
     {
       method: 'POST',
       credentials: 'same-origin',
+      body: formData,
     },
   )
     .then((response) => {
