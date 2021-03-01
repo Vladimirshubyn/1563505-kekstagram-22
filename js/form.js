@@ -2,7 +2,7 @@ import * as resize from './resize.js';
 import * as effects from './effects.js';
 import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
-import {postFetch} from './create-fetch.js';
+import {createFetch, postFetch} from './create-fetch.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -27,29 +27,29 @@ const errorUpload = function (message) {
 
 const uploadFormSubmit = function (evt) {
   const formData = new FormData(evt.target);
-  const postFetch = (onSuccess, onError) => () => {
-    return fetch(
-      'https://22.javascript.pages.academy/kekstagram',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-
-        throw new Error(`${response.status} ${response.statusText}`);
-      })
-      .then((json) => {
-        onSuccess(json);
-      })
-      .catch((err) => {
-        onError(err);
-      });
-  };
-  // postFetch(new FormData(uploadForm), successUpload, errorUpload);
+  createFetch(formData, successUpload, errorUpload);
+  // const postFetch = (onSuccess, onError) => () => {
+  //   return fetch(
+  //     'https://22.javascript.pages.academy/kekstagram',
+  //     {
+  //       method: 'POST',
+  //       body: formData,
+  //     },
+  //   )
+  //     .then((response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       }
+  //
+  //       throw new Error(`${response.status} ${response.statusText}`);
+  //     })
+  //     .then((json) => {
+  //       onSuccess(json);
+  //     })
+  //     .catch((err) => {
+  //       onError(err);
+  //     });
+  // };
   evt.preventDefault();
 };
 
