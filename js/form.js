@@ -26,7 +26,7 @@ const errorUpload = function (message) {
 };
 
 const uploadFormSubmit = function (evt) {
-  postFetch(FormData(uploadForm), successUpload, errorUpload);
+  postFetch(uploadForm, successUpload, errorUpload);
   // const postFetch = (onSuccess, onError) => () => {
   //   return fetch(
   //     'https://22.javascript.pages.academy/kekstagram',
