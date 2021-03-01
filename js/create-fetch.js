@@ -21,7 +21,7 @@ const createFetch = (onSuccess, onError) => () => {
     });
 };
 
-const postFetch = (onSuccess, onError) => () => {
+const postFetch = (formData, onSuccess, onError) => () => {
   return fetch(
     'https://22.javascript.pages.academy/kekstagram',
     {
