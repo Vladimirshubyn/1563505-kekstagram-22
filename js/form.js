@@ -2,6 +2,7 @@ import * as resize from './resize.js';
 import * as effects from './effects.js';
 import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
+import {postFetch} from './create-fetch.js';
 
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -22,6 +23,34 @@ const successUpload = function () {
 const errorUpload = function (message) {
   editPanelCloseClick();
   uploadErrorMessage.textContent = message;
+};
+
+const uploadFormSubmit = function (evt) {
+  const formData = new FormData(evt.target);
+  const postFetch = (onSuccess, onError) => () => {
+    return fetch(
+      'https://22.javascript.pages.academy/kekstagram',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+
+        throw new Error(`${response.status} ${response.statusText}`);
+      })
+      .then((json) => {
+        onSuccess(json);
+      })
+      .catch((err) => {
+        onError(err);
+      });
+  };
+  // postFetch(new FormData(uploadForm), successUpload, errorUpload);
+  evt.preventDefault();
 };
 
 const closeEditPanelHandler = function (evt) {
@@ -47,6 +76,7 @@ const openUploadForm = function () {
 uploadButton.addEventListener('change', openUploadForm);
 uploadForm.addEventListener('keydown', closeEditPanelHandler);
 editPanelClose.addEventListener('click', editPanelCloseClick);
+uploadForm.addEventListener('submit', uploadFormSubmit);
 
 const uploadFile = function (file, fileTypes, cb) {
   if (file) {
