@@ -3,7 +3,10 @@ import {isKeyEscEvent} from './util.js';
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentsList = bigPicture.querySelector('.social__comments');
+const commentsLoadMoreButton  = bigPicture.querySelector('.comments-loader');
 const socialCommentTemplate = socialCommentsList.querySelector('.social__comment');
+const comments = [];
+const COMMENTS_STEP = 5;
 
 const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
@@ -39,7 +42,31 @@ const showBigPicture = function (photoObj) {
     socialCommentsList.appendChild(fragment);
   };
 
-  makeCommentList (photoObj.comments);
+  const showCommentsLoadMoreButton = () => {
+    commentsLoadMoreButton.classList.remove('hidden');
+    commentsLoadMoreButton.addEventListener('click', commentsLoadMoreButtonClick);
+
+  };
+
+  const hideCommentsLoadMoreButton = () => {
+    commentsLoadMoreButton.classList.add('hidden');
+    commentsLoadMoreButton.removeEventListener('click', commentsLoadMoreButtonClick);
+  };
+
+  const commentsLoadMoreButtonClick = function () {
+    if (comments.length <= COMMENTS_STEP) {
+      hideCommentsLoadMoreButton();
+    }
+    makeCommentList(comments.splice(0, COMMENTS_STEP));
+  };
+
+  if (photoObj.comments.length <= COMMENTS_STEP) {
+    hideCommentsLoadMoreButton();
+  } else {
+    showCommentsLoadMoreButton();
+  }
+
+  makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP));
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);

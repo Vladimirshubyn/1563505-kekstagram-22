@@ -26,29 +26,8 @@ const errorUpload = function (message) {
 };
 
 const uploadFormSubmit = function (evt) {
-  postFetch(uploadForm, successUpload, errorUpload);
-  // const postFetch = (onSuccess, onError) => () => {
-  //   return fetch(
-  //     'https://22.javascript.pages.academy/kekstagram',
-  //     {
-  //       method: 'POST',
-  //       body: formData,
-  //     },
-  //   )
-  //     .then((response) => {
-  //       if (response.ok) {
-  //         return response.json();
-  //       }
-  //
-  //       throw new Error(`${response.status} ${response.statusText}`);
-  //     })
-  //     .then((json) => {
-  //       onSuccess(json);
-  //     })
-  //     .catch((err) => {
-  //       onError(err);
-  //     });
-  // };
+  const formData = new FormData(evt.target);
+  postFetch(formData, successUpload, errorUpload);
   evt.preventDefault();
 };
 

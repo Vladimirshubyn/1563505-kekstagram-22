@@ -1,6 +1,6 @@
 const createFetch = (onSuccess, onError) => () => {
   return fetch(
-    'https://22.javascript.pages.academy/kekstagram',
+    'https://22.javascript.pages.academy/kekstagram/data',
     {
       method: 'GET',
       credentials: 'same-origin',
