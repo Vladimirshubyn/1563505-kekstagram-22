@@ -1,4 +1,4 @@
-const createFetch = (onSuccess, onError) => () => {
+const createFetch = function (onSuccess, onError) {
   return fetch(
     'https://22.javascript.pages.academy/kekstagram/data',
     {
@@ -21,7 +21,7 @@ const createFetch = (onSuccess, onError) => () => {
     });
 };
 
-const postFetch = (formData, onSuccess, onError) => () => {
+const postFetch = function (formData, onSuccess, onError) {
   return fetch(
     'https://22.javascript.pages.academy/kekstagram',
     {

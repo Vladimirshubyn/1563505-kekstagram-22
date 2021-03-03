@@ -4,6 +4,7 @@ const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentsList = bigPicture.querySelector('.social__comments');
 const commentsLoadMoreButton  = bigPicture.querySelector('.comments-loader');
+const commentsCount = bigPicture.querySelector('.social__comment-count');
 const socialCommentTemplate = socialCommentsList.querySelector('.social__comment');
 const comments = [];
 const COMMENTS_STEP = 5;
@@ -42,13 +43,12 @@ const showBigPicture = function (photoObj) {
     socialCommentsList.appendChild(fragment);
   };
 
-  const showCommentsLoadMoreButton = () => {
+  const showCommentsLoadMoreButton = function () {
     commentsLoadMoreButton.classList.remove('hidden');
     commentsLoadMoreButton.addEventListener('click', commentsLoadMoreButtonClick);
-
   };
 
-  const hideCommentsLoadMoreButton = () => {
+  const hideCommentsLoadMoreButton = function () {
     commentsLoadMoreButton.classList.add('hidden');
     commentsLoadMoreButton.removeEventListener('click', commentsLoadMoreButtonClick);
   };
@@ -60,17 +60,31 @@ const showBigPicture = function (photoObj) {
     makeCommentList(comments.splice(0, COMMENTS_STEP));
   };
 
+  const showCommentsCount = function () {
+    commentsCount.classList.remove('hidden');
+    makeCommentList(comments.splice(0, COMMENTS_STEP));
+  };
+
+  const hideCommentsCount = function () {
+    commentsCount.classList.add('hidden');
+  };
+
   if (photoObj.comments.length <= COMMENTS_STEP) {
     hideCommentsLoadMoreButton();
   } else {
     showCommentsLoadMoreButton();
   }
 
+  commentsCount.querySelector('.comments-count').textContent = comments.length;
+
+  showCommentsCount();
+
   makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP));
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);
   bigPictureClose.focus();
+  hideCommentsCount();
 }
 
 bigPictureClose.addEventListener('click', closeBigPicture);
