@@ -4,7 +4,7 @@ import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
 import {postFetch} from './create-fetch.js';
 
-const main = document.querySelector('.main');
+const main = document.querySelector('main');
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
 const editPanel = document.querySelector('.img-upload__overlay');
@@ -12,14 +12,25 @@ const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 const uploadErrorTemplate = document.querySelector('#error');
+const uploadErrorButton = uploadErrorTemplate.querySelector('.error__button');
 const uploadSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
+const uploadSucessButton = uploadSuccessTemplate.querySelector('.success__button');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
+
+const renderErrorMessage = function (message) {
+  const errorMessage = uploadErrorTemplate.cloneNode(true);
+  errorMessage.querySelector('.error__title').content = message;
+  errorMessage.querySelector('.error__button').content = message
+  main.insertAdjacentElement('beforeEnd', errorMessage);
+  return errorMessage;
+}
+
 const renderSuccessMessage = function (message) {
   const successMessage = uploadSuccessTemplate.cloneNode(true);
-  successMessage.querySelector('.success__title').textContent = message;
-  successMessage.querySelector('.success__button').textContent = message;
+  successMessage.querySelector('.success__title').content = message;
+  successMessage.querySelector('.success__button').content = message
   main.insertAdjacentElement('beforeEnd', successMessage);
   return successMessage;
 }
@@ -32,6 +43,7 @@ const successUpload = function () {
 
 const errorUpload = function () {
   editPanelCloseClick();
+  renderErrorMessage();
 };
 
 const uploadFormSubmit = function (evt) {
