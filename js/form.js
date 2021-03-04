@@ -11,18 +11,25 @@ const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 const uploadErrorTemplate = document.querySelector('#error');
-const uploadErrorMessage = uploadErrorTemplate.querySelector('.error__title');
+const uploadSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-const successUpload = function () {
+const renderSuccessMessage = function (message) {
+  const successMessage = uploadSuccessTemplate.cloneNode(true);
+  successMessage.querySelector('.success__title').textContent = message;
+  successMessage.querySelector('.success__button').textContent = message;
+  return successMessage;
+}
+
+const successUpload = function (message) {
   uploadForm.reset();
   editPanelCloseClick();
+  renderSuccessMessage(message);
 };
 
-const errorUpload = function (message) {
+const errorUpload = function () {
   editPanelCloseClick();
-  uploadErrorMessage.textContent = message;
 };
 
 const uploadFormSubmit = function (evt) {
