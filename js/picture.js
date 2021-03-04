@@ -1,4 +1,3 @@
-import {generatePictures} from './mock.js';
 import {showBigPicture} from './preview.js';
 import {createFetch} from './create-fetch.js';
 
@@ -22,14 +21,13 @@ const makeGallery = function (arr) {
   }
   picturesList.appendChild(fragment);
 };
-const pictures = generatePictures();
 
 const onError = function () {
   alert('Не удалось загрузить галлерею');
 };
 
-const onSuccess = function () {
-  makeGallery(pictures);
+const onSuccess = function (picture) {
+  makeGallery(picture);
 }
 
 const initialize = function () {
