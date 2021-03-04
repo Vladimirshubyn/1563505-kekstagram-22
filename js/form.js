@@ -4,6 +4,7 @@ import * as validation from './form-validation.js';
 import {isKeyEscEvent} from './util.js';
 import {postFetch} from './create-fetch.js';
 
+const main = document.querySelector('.main');
 const uploadButton = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
 const editPanel = document.querySelector('.img-upload__overlay');
@@ -19,13 +20,14 @@ const renderSuccessMessage = function (message) {
   const successMessage = uploadSuccessTemplate.cloneNode(true);
   successMessage.querySelector('.success__title').textContent = message;
   successMessage.querySelector('.success__button').textContent = message;
+  main.insertAdjacentElement('beforeEnd', successMessage);
   return successMessage;
 }
 
-const successUpload = function (message) {
+const successUpload = function () {
   uploadForm.reset();
+  renderSuccessMessage();
   editPanelCloseClick();
-  renderSuccessMessage(message);
 };
 
 const errorUpload = function () {
