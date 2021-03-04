@@ -35,5 +35,6 @@ const onSuccess = function () {
 const initialize = function () {
   createFetch(onSuccess, onError);
 }
+initialize();
 
-export {renderMiniatures, picturesList, initialize};
+export {renderMiniatures, picturesList};
