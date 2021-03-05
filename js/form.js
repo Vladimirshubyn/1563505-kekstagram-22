@@ -12,10 +12,8 @@ const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 const uploadErrorTemplate = document.querySelector('#error').content.querySelector('.error');
-const uploadErrorButton = uploadErrorTemplate.querySelector('.error__button');
 const uploadSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
-const uploadSuccessBlock = uploadSuccessTemplate.querySelector('.success__inner');
-const uploadSuccessButton = uploadSuccessTemplate.querySelector('.success__button');
+// const uploadSuccessButton = uploadSuccessTemplate.querySelector('.success__button');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -24,28 +22,30 @@ const renderErrorMessage = function (message) {
   errorMessage.querySelector('.error__title').content = message;
   errorMessage.querySelector('.error__button').content = message
   main.insertAdjacentElement('beforeEnd', errorMessage);
+  errorMessage.querySelector('.success__button').addEventListener('click', function () {
+    errorMessage.remove(main);
+    document.removeEventListener('keydown', closeKeyHandler);
+  });
+  const closeKeyHandler = function (evt) {
+    isKeyEscEvent(evt, errorMessage.remove(main));
+  };
   return errorMessage;
 }
 
 const renderSuccessMessage = function (message) {
   const successMessage = uploadSuccessTemplate.cloneNode(true);
   successMessage.querySelector('.success__title').content = message;
-  successMessage.querySelector('.success__button').content = message
+  successMessage.querySelector('.success__button').content = message;
   main.insertAdjacentElement('beforeEnd', successMessage);
+  successMessage.querySelector('.success__button').addEventListener('click', function () {
+    successMessage.remove(main);
+    document.removeEventListener('keydown', closeKeyHandler);
+  });
+  const closeKeyHandler = function (evt) {
+    isKeyEscEvent(evt, successMessage.remove(main));
+  };
   return successMessage;
 }
-
-const successTemplateClose = function () {
-  uploadSuccessBlock.classList.add('hidden');
-  // main.node.remove(successMessage);
-  document.removeEventListener('keydown', closeKeyHandler);
-};
-
-const closeKeyHandler = function (evt) {
-  isKeyEscEvent(evt, successTemplateClose);
-};
-
-uploadSuccessButton.addEventListener('click', successTemplateClose);
 
 const successUpload = function () {
   uploadForm.reset();
