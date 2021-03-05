@@ -1,3 +1,5 @@
+import * as filter from './filter.js';
+
 import {showBigPicture} from './preview.js';
 import {createFetch} from './create-fetch.js';
 
@@ -28,6 +30,7 @@ const onError = function () {
 
 const onSuccess = function (picture) {
   makeGallery(picture);
+  filter.initialize(picture);
 }
 
 const initialize = function () {
@@ -35,4 +38,13 @@ const initialize = function () {
 }
 initialize();
 
-export {renderMiniatures, picturesList};
+const removePhotos = function () {
+  pictureTeplate.forEach((it) => picturesList.removeChild(it));
+};
+
+const updatePhotos = function (photoArray) {
+  removePhotos();
+  makeGallery(photoArray);
+};
+
+export {renderMiniatures, picturesList, updatePhotos};
