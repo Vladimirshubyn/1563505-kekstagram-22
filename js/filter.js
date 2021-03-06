@@ -24,7 +24,7 @@ const sortByComments = (photos) =>
   photos.slice().sort((x, y) => y.comments.length - x.comments.length);
 
 const filterNameToFunction = {
-  'filter-recommended': identity,
+  'filter-default': identity,
   'filter-popular': sortByLikes,
   'filter-discussed': sortByComments,
   'filter-random': getRandomArray,

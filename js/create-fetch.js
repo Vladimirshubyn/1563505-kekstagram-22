@@ -13,12 +13,8 @@ const createFetch = function (onSuccess, onError) {
 
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    .then((json) => {
-      onSuccess(json);
-    })
-    .catch((err) => {
-      onError(err);
-    });
+    .then(onSuccess)
+    .catch(onError);
 };
 
 const postFetch = function (formData, onSuccess, onError) {
@@ -37,12 +33,8 @@ const postFetch = function (formData, onSuccess, onError) {
 
       throw new Error(`${response.status} ${response.statusText}`);
     })
-    .then((json) => {
-      onSuccess(json);
-    })
-    .catch((err) => {
-      onError(err);
-    });
+    .then(onSuccess)
+    .catch(onError);
 };
 
 
