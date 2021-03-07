@@ -39,7 +39,8 @@ const initialize = function () {
 initialize();
 
 const removePhotos = function () {
-  pictureTeplate.forEach((it) => picturesList.removeChild(it));
+  const pictureElements = picturesList.querySelectorAll('.picture');
+  pictureElements.forEach((it) => picturesList.removeChild(it));
 };
 
 const updatePhotos = function (photoArray) {

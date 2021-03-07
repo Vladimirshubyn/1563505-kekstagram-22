@@ -9,6 +9,7 @@ const renderErrorMessage = function (message) {
   main.insertAdjacentElement('beforeEnd', errorMessage);
   errorMessage.querySelector('.error__button').addEventListener('click', function () {
     errorMessage.remove(main);
+    document.removeEventListener('keydown', closeKeyHandler);
   });
   const closeKeyHandler = function (evt) {
     const ESC_KEYCODE = 27;
@@ -27,6 +28,7 @@ const renderSuccessMessage = function (message) {
   main.insertAdjacentElement('beforeEnd', successMessage);
   successMessage.querySelector('.success__button').addEventListener('click', function () {
     successMessage.remove(main);
+    document.removeEventListener('keydown', closeKeyHandler);
   });
   const closeKeyHandler = function (evt) {
     const ESC_KEYCODE = 27;

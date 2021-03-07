@@ -37,7 +37,7 @@ const filterPhotos = function (evt, photos) {
     setCurrentFilter(appliedFilter);
 
     const filteredPhotos = filterNameToFunction[appliedFilter.id](photos);
-    debounce(() => updatePhotos(filteredPhotos), DEBOUNCE);
+    updatePhotos(filteredPhotos);
   }
 };
 
@@ -46,7 +46,7 @@ const initialize = function (photos) {
   currentFilter = filters[0];
   Array.from(filters).forEach((filter) =>
     filter.addEventListener('click', function (evt) {
-      filterPhotos(evt, photos);
+      debounce(() => filterPhotos(evt, photos), DEBOUNCE);
     }),
   );
 };
