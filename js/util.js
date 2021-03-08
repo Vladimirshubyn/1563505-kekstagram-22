@@ -12,7 +12,7 @@ const getRandomItem = function(arr) {
 
 //Функция для проверки максимальной длины строки
 
-const checkLineLength = function(line, maxLineLength) {
+const checkLineLength = function (line, maxLineLength) {
   if (line.length <= maxLineLength) {
     return true;
   } else {
@@ -20,6 +20,31 @@ const checkLineLength = function(line, maxLineLength) {
   }
 }
 
+const getRandomArrayElement = function (initialArray, needRemove = false) {
+  const randomElementIndex = getRandomNumber(0, initialArray.length - 1);
+  const randomElement = initialArray[randomElementIndex];
+  if (needRemove) {
+    initialArray.splice(randomElementIndex, 1);
+  }
+
+  return randomElement;
+};
+
+const getRandomArray = function (initialArray) {
+  const copiedArray = initialArray.slice();
+  const length = 10;
+
+  const iter = (acc, array) => {
+    if (acc.length === length) {
+      return acc;
+    }
+
+    const randomElement = getRandomArrayElement(array, true);
+    return iter([...acc, randomElement], array);
+  };
+
+  return iter([], copiedArray);
+};
 
 const isKeyEscEvent = function (evt, action) {
   const ESC_KEYCODE = 27;
@@ -28,7 +53,16 @@ const isKeyEscEvent = function (evt, action) {
   }
 };
 
+let lastTimeout;
+
+const debounce = (cb, debounceInterval) => {
+  if (lastTimeout) {
+    window.clearTimeout(lastTimeout);
+  }
+  lastTimeout = window.setTimeout(cb, debounceInterval);
+};
+
 const getArrayWithoutElement = (initialArray, deletedElement) =>
   initialArray.reduce((acc, value) => value === deletedElement ? acc : [...acc, value], []);
 
-export {getRandomNumber, getRandomItem, isKeyEscEvent, checkLineLength, getArrayWithoutElement};
+export {getRandomNumber, getRandomItem, isKeyEscEvent, checkLineLength, getArrayWithoutElement, getRandomArray, debounce};

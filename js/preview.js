@@ -3,7 +3,11 @@ import {isKeyEscEvent} from './util.js';
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
 const socialCommentsList = bigPicture.querySelector('.social__comments');
+const commentsLoadMoreButton  = bigPicture.querySelector('.comments-loader');
+const commentsCount = bigPicture.querySelector('.social__comment-count');
 const socialCommentTemplate = socialCommentsList.querySelector('.social__comment');
+const comments = [];
+const COMMENTS_STEP = 5;
 
 const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
@@ -39,11 +43,48 @@ const showBigPicture = function (photoObj) {
     socialCommentsList.appendChild(fragment);
   };
 
-  makeCommentList (photoObj.comments);
+  const showCommentsLoadMoreButton = function () {
+    commentsLoadMoreButton.classList.remove('hidden');
+    commentsLoadMoreButton.addEventListener('click', commentsLoadMoreButtonClick);
+  };
+
+  const hideCommentsLoadMoreButton = function () {
+    commentsLoadMoreButton.classList.add('hidden');
+    commentsLoadMoreButton.removeEventListener('click', commentsLoadMoreButtonClick);
+  };
+
+  const commentsLoadMoreButtonClick = function () {
+    if (comments.length <= COMMENTS_STEP) {
+      hideCommentsLoadMoreButton();
+    }
+    makeCommentList(photoObj.comments.splice(0, COMMENTS_STEP));
+  };
+
+  const showCommentsCount = function () {
+    commentsCount.classList.remove('hidden');
+    makeCommentList(photoObj.comments.splice(0, COMMENTS_STEP));
+  };
+
+  const hideCommentsCount = function () {
+    commentsCount.classList.add('hidden');
+  };
+
+  if (photoObj.comments.length <= COMMENTS_STEP) {
+    hideCommentsLoadMoreButton();
+  } else {
+    showCommentsLoadMoreButton();
+  }
+
+  commentsCount.querySelector('.comments-count').textContent = comments.length;
+
+  makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP - 5));
+
+  showCommentsCount();
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);
   bigPictureClose.focus();
+  hideCommentsCount();
 }
 
 bigPictureClose.addEventListener('click', closeBigPicture);

@@ -1,5 +1,7 @@
-import {generatePictures} from './mock.js';
+import * as filter from './filter.js';
+
 import {showBigPicture} from './preview.js';
+import {createFetch} from './create-fetch.js';
 
 const pictureTeplate = document.querySelector ('#picture').content.querySelector('.picture');
 const picturesList = document.querySelector('.pictures');
@@ -22,8 +24,28 @@ const makeGallery = function (arr) {
   picturesList.appendChild(fragment);
 };
 
-const pictures = generatePictures();
-makeGallery(pictures);
+const onError = function () {
+  alert('Не удалось загрузить галлерею');
+};
 
-export {renderMiniatures};
-export {picturesList};
+const onSuccess = function (picture) {
+  makeGallery(picture);
+  filter.initialize(picture);
+}
+
+const initialize = function () {
+  createFetch(onSuccess, onError);
+}
+initialize();
+
+const removePhotos = function () {
+  const pictureElements = picturesList.querySelectorAll('.picture');
+  pictureElements.forEach((it) => picturesList.removeChild(it));
+};
+
+const updatePhotos = function (photoArray) {
+  removePhotos();
+  makeGallery(photoArray);
+};
+
+export {renderMiniatures, picturesList, updatePhotos};
