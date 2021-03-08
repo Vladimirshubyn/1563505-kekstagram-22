@@ -57,12 +57,12 @@ const showBigPicture = function (photoObj) {
     if (comments.length <= COMMENTS_STEP) {
       hideCommentsLoadMoreButton();
     }
-    makeCommentList(comments.splice(0, COMMENTS_STEP));
+    makeCommentList(photoObj.comments.splice(0, COMMENTS_STEP));
   };
 
   const showCommentsCount = function () {
     commentsCount.classList.remove('hidden');
-    makeCommentList(comments.splice(0, COMMENTS_STEP));
+    makeCommentList(photoObj.comments.splice(0, COMMENTS_STEP));
   };
 
   const hideCommentsCount = function () {
@@ -77,9 +77,9 @@ const showBigPicture = function (photoObj) {
 
   commentsCount.querySelector('.comments-count').textContent = comments.length;
 
-  showCommentsCount();
+  makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP - 5));
 
-  makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP));
+  showCommentsCount();
 
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', closeKeyHandler);

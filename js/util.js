@@ -12,7 +12,7 @@ const getRandomItem = function(arr) {
 
 //Функция для проверки максимальной длины строки
 
-const checkLineLength = function(line, maxLineLength) {
+const checkLineLength = function (line, maxLineLength) {
   if (line.length <= maxLineLength) {
     return true;
   } else {
@@ -30,9 +30,9 @@ const getRandomArrayElement = function (initialArray, needRemove = false) {
   return randomElement;
 };
 
-const getRandomArray = (initialArray, min = 1, max = initialArray.length) => {
+const getRandomArray = function (initialArray) {
   const copiedArray = initialArray.slice();
-  const length = getRandomNumber(min, max);
+  const length = 10;
 
   const iter = (acc, array) => {
     if (acc.length === length) {
