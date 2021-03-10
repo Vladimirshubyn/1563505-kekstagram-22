@@ -5,3 +5,4 @@ import './form.js';
 import './effects.js';
 import './form-validation.js';
 import './create-fetch.js';
+import './filter.js';
