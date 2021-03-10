@@ -43,14 +43,23 @@ const showBigPicture = function (photoObj) {
     socialCommentsList.appendChild(fragment);
   };
 
+  const enterPressLoadMore = function (evt) {
+    const ENTER_KEY_CODE = 13;
+    if (evt.keyCode === ENTER_KEY_CODE) {
+      commentsLoadMoreButtonClick();
+    }
+  };
+
   const showCommentsLoadMoreButton = function () {
     commentsLoadMoreButton.classList.remove('hidden');
     commentsLoadMoreButton.addEventListener('click', commentsLoadMoreButtonClick);
+    commentsLoadMoreButton.addEventListener('keydown', enterPressLoadMore);
   };
 
   const hideCommentsLoadMoreButton = function () {
     commentsLoadMoreButton.classList.add('hidden');
     commentsLoadMoreButton.removeEventListener('click', commentsLoadMoreButtonClick);
+    commentsLoadMoreButton.removeEventListener('keydown', enterPressLoadMore);
   };
 
   const commentsLoadMoreButtonClick = function () {
