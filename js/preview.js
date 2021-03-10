@@ -63,7 +63,7 @@ const showBigPicture = function (photoObj) {
   };
 
   const commentsLoadMoreButtonClick = function () {
-    if (comments.length <= COMMENTS_STEP) {
+    if (photoObj.comments.length <= COMMENTS_STEP) {
       hideCommentsLoadMoreButton();
     }
     makeCommentList(photoObj.comments.splice(0, COMMENTS_STEP));
@@ -84,9 +84,9 @@ const showBigPicture = function (photoObj) {
     showCommentsLoadMoreButton();
   }
 
-  commentsCount.querySelector('.comments-count').textContent = comments.length;
+  commentsCount.querySelector('.comments-count').textContent = photoObj.comments.length;
 
-  makeCommentList (photoObj.comments.splice(0, COMMENTS_STEP - 5));
+  makeCommentList (photoObj);
 
   showCommentsCount();
 
