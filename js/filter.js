@@ -20,7 +20,7 @@ const identity = (value) => value;
 const sortByComments = (photos) =>
   photos.slice().sort((x, y) => y.comments.length - x.comments.length);
 
-const filterNameToFunction = {
+const filterNamesToFunction = {
   'filter-default': identity,
   'filter-discussed': sortByComments,
   'filter-random': getRandomArray,
@@ -32,7 +32,7 @@ const filterPhotos = function (evt, photos) {
   if (appliedFilter !== currentFilter) {
     setCurrentFilter(appliedFilter);
 
-    const filteredPhotos = filterNameToFunction[appliedFilter.id](photos);
+    const filteredPhotos = filterNamesToFunction[appliedFilter.id](photos);
     updatePhotos(filteredPhotos);
   }
 };

@@ -11,7 +11,8 @@ const editPanel = document.querySelector('.img-upload__overlay');
 const editPanelClose = editPanel.querySelector('#upload-cancel');
 const uploadMessage = uploadForm.querySelector('.img-upload__message--loading');
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
-// const uploadSuccessButton = uploadSuccessTemplate.querySelector('.success__button');
+const hashTagsField = uploadForm.querySelector('.text__hashtags');
+const commentField = uploadForm.querySelector('.text__description');
 
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
@@ -33,7 +34,9 @@ const uploadFormSubmit = function (evt) {
 };
 
 const closeEditPanelHandler = function (evt) {
-  isKeyEscEvent(evt, editPanelCloseClick);
+  if (evt.target !== hashTagsField && evt.target !== commentField) {
+    isKeyEscEvent(evt, editPanelCloseClick);
+  }
 };
 
 const editPanelCloseClick = function () {
@@ -86,4 +89,4 @@ const initialize = function (evt) {
   });
 };
 
-export {initialize};
+export {initialize, closeEditPanelHandler};

@@ -3,7 +3,7 @@ const hashTagsField = uploadForm.querySelector('.text__hashtags');
 const commentField = uploadForm.querySelector('.text__description');
 const submitButton = uploadForm.querySelector('.img-upload__submit');
 
-const HASH_TAG = {
+const HashTag = {
   SYMBOL: '#',
   MIN_SIZE: 2,
   MAX_SIZE: 20,
@@ -13,34 +13,26 @@ const HASH_TAG = {
 const COMMENT_MAX_SIZE = 140;
 const ERROR_STYLE = '2px solid #ff0000';
 
-const setErrorValidStyle = function (element) {
-  element.style.border = ERROR_STYLE;
-};
-
-const resetErrorValidStyle = function (element) {
-  element.style.border = '';
-};
-
 const checkActions = [
   {
     message: false,
     check: (arg) => arg.length === 0,
   },
   {
-    message: `Хэш-тэгов должно быть не более ${HASH_TAG.AMOUNT}`,
-    check: (arg) => arg.length > HASH_TAG.AMOUNT,
+    message: `Хэш-тэгов должно быть не более ${HashTag.AMOUNT}`,
+    check: (arg) => arg.length > HashTag.AMOUNT,
   },
   {
     message: 'Хэш-тэг должен начинаться с #',
-    check: (arg) => arg.some((value) => value[0] !== HASH_TAG.SYMBOL),
+    check: (arg) => arg.some((value) => value[0] !== HashTag.SYMBOL),
   },
   {
-    message: `Хэш-тэг должен состоять минимум из ${HASH_TAG.MIN_SIZE} символов`,
-    check: (arg) => arg.some((value) => value.length < HASH_TAG.MIN_SIZE),
+    message: `Хэш-тэг должен состоять минимум из ${HashTag.MIN_SIZE} символов`,
+    check: (arg) => arg.some((value) => value.length < HashTag.MIN_SIZE),
   },
   {
-    message: `Хэш-тэг не должен превышать ${HASH_TAG.MAX_SIZE} символов`,
-    check: (arg) => arg.some((value) => value.length > HASH_TAG.MAX_SIZE),
+    message: `Хэш-тэг не должен превышать ${HashTag.MAX_SIZE} символов`,
+    check: (arg) => arg.some((value) => value.length > HashTag.MAX_SIZE),
   },
   {
     message: 'Хэш-тэги должны быть уникальными',
@@ -51,6 +43,15 @@ const checkActions = [
     check: (arg) => arg,
   },
 ];
+
+const setErrorValidStyle = function (element) {
+  element.style.border = ERROR_STYLE;
+};
+
+const resetErrorValidStyle = function (element) {
+  element.style.border = '';
+};
+
 
 const getCheckAction = (arg) => checkActions.find(({check}) => check(arg));
 
