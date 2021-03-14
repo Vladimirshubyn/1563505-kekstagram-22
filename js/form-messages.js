@@ -1,3 +1,4 @@
+const ESC_KEYCODE = 27;
 const main = document.querySelector('main');
 const uploadErrorTemplate = document.querySelector('#error').content.querySelector('.error');
 const uploadSuccessTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -12,7 +13,6 @@ const renderErrorMessage = function (message) {
     document.removeEventListener('keydown', closeKeyHandler);
   });
   const closeKeyHandler = function (evt) {
-    const ESC_KEYCODE = 27;
     if (evt.keyCode === ESC_KEYCODE) {
       errorMessage.remove(main);
     }
@@ -31,7 +31,6 @@ const renderSuccessMessage = function (message) {
     document.removeEventListener('keydown', closeKeyHandler);
   });
   const closeKeyHandler = function (evt) {
-    const ESC_KEYCODE = 27;
     if (evt.keyCode === ESC_KEYCODE) {
       successMessage.remove(main);
     }

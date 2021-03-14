@@ -1,9 +1,8 @@
+const DEBOUNCE = 500;
 import {getRandomArray, debounce} from './util.js';
 import {updatePhotos} from './picture.js';
-
 const filtersContainer = document.querySelector('.img-filters');
 const filters = filtersContainer.querySelectorAll('.img-filters__button');
-const DEBOUNCE = 500;
 
 let currentFilter;
 

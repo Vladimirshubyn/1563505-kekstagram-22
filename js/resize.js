@@ -1,15 +1,14 @@
-const uploadForm = document.querySelector('.img-upload__form');
-const resizeMinus = uploadForm.querySelector('.scale__control--smaller');
-const resizePlus = uploadForm.querySelector('.scale__control--bigger');
-const resizeValue = uploadForm.querySelector('.scale__control--value');
-const picturePreview = uploadForm.querySelector('.img-upload__preview');
-
-const PICTURE_SIZE = {
+const PictureSize = {
   MIN: 25,
   MAX: 100,
   DEFAULT: 100,
   STEP: 25,
 };
+const uploadForm = document.querySelector('.img-upload__form');
+const resizeMinus = uploadForm.querySelector('.scale__control--smaller');
+const resizePlus = uploadForm.querySelector('.scale__control--bigger');
+const resizeValue = uploadForm.querySelector('.scale__control--value');
+const picturePreview = uploadForm.querySelector('.img-upload__preview');
 
 let currentPictureSize = 100;
 
@@ -20,21 +19,21 @@ const setPictureSize = function (size) {
 };
 
 const resizeMinusClick = function () {
-  if (currentPictureSize > PICTURE_SIZE.MIN) {
-    const newSize = currentPictureSize - PICTURE_SIZE.STEP;
+  if (currentPictureSize > PictureSize.MIN) {
+    const newSize = currentPictureSize - PictureSize.STEP;
     setPictureSize(newSize);
   }
 };
 
 const resizePlusClick = function () {
-  if (currentPictureSize < PICTURE_SIZE.MAX) {
-    const newSize = currentPictureSize + PICTURE_SIZE.STEP;
+  if (currentPictureSize < PictureSize.MAX) {
+    const newSize = currentPictureSize + PictureSize.STEP;
     setPictureSize(newSize);
   }
 };
 
 const initialize = function () {
-  setPictureSize(PICTURE_SIZE.DEFAULT);
+  setPictureSize(PictureSize.DEFAULT);
   resizeMinus.addEventListener('click', resizeMinusClick);
   resizePlus.addEventListener('click', resizePlusClick);
 };

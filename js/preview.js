@@ -1,3 +1,5 @@
+const ENTER_KEY_CODE = 13;
+const COMMENTS_STEP = 5;
 import {isKeyEscEvent} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
@@ -6,7 +8,6 @@ const socialCommentsList = bigPicture.querySelector('.social__comments');
 const commentsLoadMoreButton  = bigPicture.querySelector('.comments-loader');
 const commentsCount = bigPicture.querySelector('.social__comment-count');
 const socialCommentTemplate = socialCommentsList.querySelector('.social__comment');
-const COMMENTS_STEP = 5;
 
 const closeBigPicture = function () {
   bigPicture.classList.add('hidden');
@@ -18,6 +19,7 @@ const closeKeyHandler = function (evt) {
 };
 
 const showBigPicture = function (photoObj) {
+  document.body.classList.add('modal-open');
   const photoCommentCopy = photoObj.comments.slice(0);
   bigPicture.querySelector('.social__caption').textContent = photoObj.description;
   bigPicture.querySelector('.big-picture__img img').src = photoObj.url;
@@ -44,7 +46,6 @@ const showBigPicture = function (photoObj) {
   };
 
   const enterPressLoadMore = function (evt) {
-    const ENTER_KEY_CODE = 13;
     if (evt.keyCode === ENTER_KEY_CODE) {
       commentsLoadMoreButtonClick();
     }
@@ -96,7 +97,6 @@ const showBigPicture = function (photoObj) {
 
 bigPictureClose.addEventListener('click', closeBigPicture);
 bigPictureClose.addEventListener('keydown', closeKeyHandler);
-document.body.classList.add('modal-open');
 
 
 export {showBigPicture};

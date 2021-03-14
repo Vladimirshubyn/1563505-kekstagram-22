@@ -1,4 +1,4 @@
-// Функция для массива комментариев
+const ESC_KEYCODE = 27;
 
 const getRandomNumber = function(min, max) {
   let randomNumber = min + Math.random() * (max + 1 - min);
@@ -9,8 +9,6 @@ const getRandomItem = function(arr) {
   let randomIndex = getRandomNumber(0, arr.length - 1);
   return arr[randomIndex];
 }
-
-//Функция для проверки максимальной длины строки
 
 const checkLineLength = function (line, maxLineLength) {
   if (line.length <= maxLineLength) {
@@ -47,7 +45,6 @@ const getRandomArray = function (initialArray) {
 };
 
 const isKeyEscEvent = function (evt, action) {
-  const ESC_KEYCODE = 27;
   if (evt.keyCode === ESC_KEYCODE) {
     action();
   }

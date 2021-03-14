@@ -1,3 +1,4 @@
+const EFFECT_MAX_LEVEL = 100;
 const sliderElement = document.querySelector('.effect-level__slider');
 const editPanel = document.querySelector('.img-upload__overlay');
 const scalePanel = editPanel.querySelector('.effect-level');
@@ -7,7 +8,6 @@ const effectList = editPanel.querySelector('.effects__list');
 const defaultEffect = effectPanel.querySelector('#effect-none').value;
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 
-const EFFECT_MAX_LEVEL = 100;
 
 noUiSlider.create(sliderElement, { // eslint-disable-line no-undef
   range: {

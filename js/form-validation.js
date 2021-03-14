@@ -1,19 +1,18 @@
-const uploadForm = document.querySelector('.img-upload__form');
-const hashTagsField = uploadForm.querySelector('.text__hashtags');
-const commentField = uploadForm.querySelector('.text__description');
-const submitButton = uploadForm.querySelector('.img-upload__submit');
-
 const HashTag = {
   SYMBOL: '#',
   MIN_SIZE: 2,
   MAX_SIZE: 20,
   AMOUNT: 5,
+  SPECIAL_CHAR: ['#','!','@',':',')',',',' ','$','%','^','&'],
 };
-
 const COMMENT_MAX_SIZE = 140;
 const ERROR_STYLE = '2px solid #ff0000';
+const uploadForm = document.querySelector('.img-upload__form');
+const hashTagsField = uploadForm.querySelector('.text__hashtags');
+const commentField = uploadForm.querySelector('.text__description');
+const submitButton = uploadForm.querySelector('.img-upload__submit');
 
-const checkActions = [
+const CheckActions = [
   {
     message: false,
     check: (arg) => arg.length === 0,
@@ -39,11 +38,14 @@ const checkActions = [
     check: (arg) => arg.some((value, index, arr) => arr.indexOf(value) !== index),
   },
   {
+    message: 'Хэш-тэги не должны содержать спец-символы',
+    check: (arg) => arg.some((value) => value[1] == HashTag.SPECIAL_CHAR[1]),
+  },
+  {
     message: false,
     check: (arg) => arg,
   },
 ];
-
 const setErrorValidStyle = function (element) {
   element.style.border = ERROR_STYLE;
 };
@@ -52,8 +54,7 @@ const resetErrorValidStyle = function (element) {
   element.style.border = '';
 };
 
-
-const getCheckAction = (arg) => checkActions.find(({check}) => check(arg));
+const getCheckAction = (arg) => CheckActions.find(({check}) => check(arg));
 
 const getHashTagsArray = function (str) {
   const arr = str.split(' ').map(((value) => value.toLowerCase()));
