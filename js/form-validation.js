@@ -3,7 +3,6 @@ const HashTag = {
   MIN_SIZE: 2,
   MAX_SIZE: 20,
   AMOUNT: 5,
-  SPECIAL_CHAR: new RegExp(/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/gy),
 };
 const COMMENT_MAX_SIZE = 140;
 const ERROR_STYLE = '2px solid #ff0000';
@@ -39,7 +38,7 @@ const CheckActions = [
   },
   {
     message: 'Хэш-тэги не должны содержать спец-символы',
-    check: (arg) => arg.some((value) => value.match(/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g)),
+    check: (arg) => arg.some((value) => value.match(/^.[^!@#$%^&*()[{}]+$/)),
   },
   {
     message: false,
