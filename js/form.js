@@ -56,7 +56,7 @@ const openUploadForm = function () {
 uploadButton.addEventListener('change', openUploadForm);
 uploadForm.addEventListener('submit', uploadFormSubmit);
 editPanelClose.addEventListener('click', editPanelCloseClick);
-uploadForm.addEventListener('keydown', closeEditPanelHandler);
+document.addEventListener('keydown', closeEditPanelHandler);
 
 const uploadFile = function (file, fileTypes, cb) {
   if (file) {
