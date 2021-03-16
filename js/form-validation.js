@@ -38,7 +38,7 @@ const CheckActions = [
   },
   {
     message: 'Хэш-тэги не должны содержать спец-символы',
-    check: (arg) => arg.some((value) => value.match(/^.[^!@#$%^&*()[{}]+$/)),
+    check: (arg) => arg.some((value) => !(/^.[^\W]+$/.test(value))),
   },
   {
     message: false,
