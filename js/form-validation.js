@@ -87,7 +87,7 @@ const clearCustomValidity = function (...fields) {
   });
 };
 
-const initialize = function () {
+const initializeValidation = function () {
   clearCustomValidity(hashTagsField, commentField);
 };
 
@@ -105,4 +105,4 @@ uploadForm.addEventListener('input', function (evt) {
 });
 
 
-export {initialize};
+export {initializeValidation};

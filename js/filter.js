@@ -14,13 +14,13 @@ const setCurrentFilter = function (filter) {
   currentFilter = filter;
 };
 
-const identity = (value) => value;
+const setIdentity = (value) => value;
 
 const sortByComments = (photos) =>
   photos.slice().sort((x, y) => y.comments.length - x.comments.length);
 
 const filterNamesToFunction = {
-  'filter-default': identity,
+  'filter-default': setIdentity,
   'filter-discussed': sortByComments,
   'filter-random': getRandomArray,
 };
@@ -36,7 +36,7 @@ const filterPhotos = function (evt, photos) {
   }
 };
 
-const initialize = function (photos) {
+const initializeFilter = function (photos) {
   filtersContainer.classList.remove('img-filters--inactive');
   currentFilter = filters[0];
   Array.from(filters).forEach((filter) =>
@@ -46,4 +46,4 @@ const initialize = function (photos) {
   );
 };
 
-export {initialize};
+export {initializeFilter};

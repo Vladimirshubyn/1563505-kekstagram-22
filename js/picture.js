@@ -30,13 +30,13 @@ const onError = function () {
 
 const onSuccess = function (picture) {
   makeGallery(picture);
-  filter.initialize(picture);
+  filter.initializeFilter(picture);
 }
 
-const initialize = function () {
+const initializeFetch = function () {
   createFetch(onSuccess, onError);
 }
-initialize();
+initializeFetch();
 
 const removePhotos = function () {
   const pictureElements = picturesList.querySelectorAll('.picture');

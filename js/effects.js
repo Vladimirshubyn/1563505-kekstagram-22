@@ -8,8 +8,7 @@ const effectList = editPanel.querySelector('.effects__list');
 const defaultEffect = effectPanel.querySelector('#effect-none').value;
 const uploadedPicture = editPanel.querySelector('.img-upload__preview img');
 
-
-noUiSlider.create(sliderElement, { // eslint-disable-line no-undef
+window.noUiSlider.create(sliderElement, {
   range: {
     min: 0,
     max: 100,
@@ -81,10 +80,10 @@ const effectToggleClick = function (effectName) {
   }
 };
 
-const initialize = function () {
+const initializeEffects = function () {
   setPictureClass(defaultEffect.value);
   scalePanel.classList.add('hidden');
 };
 
 
-export {initialize};
+export {initializeEffects};

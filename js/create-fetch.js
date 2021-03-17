@@ -1,6 +1,9 @@
+const REQUEST_DATA = 'https://22.javascript.pages.academy/kekstagram/data';
+const REQUEST_FORM = 'https://22.javascript.pages.academy/kekstagram';
+
 const createFetch = function (onSuccess, onError) {
   return fetch(
-    'https://22.javascript.pages.academy/kekstagram/data',
+    REQUEST_DATA,
     {
       method: 'GET',
       credentials: 'same-origin',
@@ -19,7 +22,7 @@ const createFetch = function (onSuccess, onError) {
 
 const postFetch = function (formData, onSuccess, onError) {
   return fetch(
-    'https://22.javascript.pages.academy/kekstagram',
+    REQUEST_FORM,
     {
       method: 'POST',
       credentials: 'same-origin',

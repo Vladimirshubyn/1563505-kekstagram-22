@@ -32,15 +32,15 @@ const resizePlusClick = function () {
   }
 };
 
-const initialize = function () {
+const initializeResize = function () {
   setPictureSize(PictureSize.DEFAULT);
   resizeMinus.addEventListener('click', resizeMinusClick);
   resizePlus.addEventListener('click', resizePlusClick);
 };
 
-const finalize = function () {
+const finalizeResize = function () {
   resizeMinus.removeEventListener('click', resizeMinusClick);
   resizePlus.removeEventListener('click', resizePlusClick);
 };
 
-export {initialize, finalize};
+export {initializeResize, finalizeResize};

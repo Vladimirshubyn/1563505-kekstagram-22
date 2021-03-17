@@ -5,26 +5,12 @@ const getRandomNumber = function(min, max) {
   return Math.floor(randomNumber);
 }
 
-const getRandomItem = function(arr) {
-  let randomIndex = getRandomNumber(0, arr.length - 1);
-  return arr[randomIndex];
-}
-
-const checkLineLength = function (line, maxLineLength) {
-  if (line.length <= maxLineLength) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 const getRandomArrayElement = function (initialArray, needRemove = false) {
   const randomElementIndex = getRandomNumber(0, initialArray.length - 1);
   const randomElement = initialArray[randomElementIndex];
   if (needRemove) {
     initialArray.splice(randomElementIndex, 1);
   }
-
   return randomElement;
 };
 
@@ -32,16 +18,15 @@ const getRandomArray = function (initialArray) {
   const copiedArray = initialArray.slice();
   const length = 10;
 
-  const iter = (acc, array) => {
+  const makeIter = (acc, array) => {
     if (acc.length === length) {
       return acc;
     }
 
     const randomElement = getRandomArrayElement(array, true);
-    return iter([...acc, randomElement], array);
+    return makeIter([...acc, randomElement], array);
   };
-
-  return iter([], copiedArray);
+  return makeIter([], copiedArray);
 };
 
 const isKeyEscEvent = function (evt, action) {
@@ -59,7 +44,4 @@ const debounce = (cb, debounceInterval) => {
   lastTimeout = window.setTimeout(cb, debounceInterval);
 };
 
-const getArrayWithoutElement = (initialArray, deletedElement) =>
-  initialArray.reduce((acc, value) => value === deletedElement ? acc : [...acc, value], []);
-
-export {getRandomNumber, getRandomItem, isKeyEscEvent, checkLineLength, getArrayWithoutElement, getRandomArray, debounce};
+export {isKeyEscEvent, getRandomArray, debounce};
